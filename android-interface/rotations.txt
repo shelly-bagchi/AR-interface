@@ -1,0 +1,16 @@
+>> syms roll pitch yaw;
+>> rotation_rad(yaw,3,'x')*rotation_rad(pitch,3,'y')*rotation_rad(roll,3,'z')
+ 
+ans =
+ 
+[                               cos(pitch)*cos(roll),                              -cos(pitch)*sin(roll),           sin(pitch)]
+[ cos(yaw)*sin(roll) + cos(roll)*sin(pitch)*sin(yaw), cos(roll)*cos(yaw) - sin(pitch)*sin(roll)*sin(yaw), -cos(pitch)*sin(yaw)]
+[ sin(roll)*sin(yaw) - cos(roll)*cos(yaw)*sin(pitch), cos(roll)*sin(yaw) + cos(yaw)*sin(pitch)*sin(roll),  cos(pitch)*cos(yaw)]
+ 
+>> rotation_rad(roll,3,'z')*rotation_rad(pitch,3,'y')*rotation_rad(yaw,3,'x')
+ 
+ans =
+ 
+[ cos(pitch)*cos(roll), cos(roll)*sin(pitch)*sin(yaw) - cos(yaw)*sin(roll), sin(roll)*sin(yaw) + cos(roll)*cos(yaw)*sin(pitch)]
+[ cos(pitch)*sin(roll), cos(roll)*cos(yaw) + sin(pitch)*sin(roll)*sin(yaw), cos(yaw)*sin(pitch)*sin(roll) - cos(roll)*sin(yaw)]
+[          -sin(pitch),                                cos(pitch)*sin(yaw),                                cos(pitch)*cos(yaw)]

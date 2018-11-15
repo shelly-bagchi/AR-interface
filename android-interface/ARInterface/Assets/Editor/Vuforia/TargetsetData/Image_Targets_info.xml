@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="QCAR_Dataset_config.xsd">
+  <TargetSet version="5.0" toolVersion="4.2.0">
+    <ObjectTarget bbox="0.0 0.0 0.0 142.5 95.0 95.0" captureAppVersion="1.0.0" lastSaved="2018-07-19 16:47:00" name="GearBase" targetId="320b4681bbd245acad4b639a1d8c8e71" version="2.0" />
+    <ObjectTarget bbox="0.0 0.0 0.0 142.5 95.0 95.0" captureAppVersion="1.0.0" lastSaved="2018-07-19 16:42:39" name="SilverGear" targetId="e8da780065774a5a9df50fb054fd8aba" version="2.0" />
+    <ObjectTarget bbox="0.0 0.0 0.0 142.5 95.0 95.0" captureAppVersion="1.0.0" lastSaved="2018-07-19 16:34:57" name="PinkGear" targetId="d969257c234d4d499d01738e96e8a88d" version="2.0" />
+    <ObjectTarget bbox="0.0 0.0 0.0 142.5 95.0 95.0" captureAppVersion="1.0.0" lastSaved="2018-07-19 16:39:43" name="BlueGear" targetId="75a863a4c04a4c31a4e65b42d565d57d" version="2.0" />
+    <ObjectTarget bbox="0.0 0.0 0.0 142.5 95.0 95.0" captureAppVersion="1.0.0" lastSaved="2016-12-20 15:28:08" name="drill" targetId="57a36ab302ac437fa48324a361eb2eb6" version="2.0" />
+  </TargetSet>
+</QCARInfo>
