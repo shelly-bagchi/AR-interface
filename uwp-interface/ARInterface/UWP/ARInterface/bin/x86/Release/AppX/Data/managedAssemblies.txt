@@ -1,0 +1,12 @@
+Assembly-CSharp-firstpass.dll
+Assembly-CSharp.dll
+Newtonsoft.Json.dll
+UnityEngine.Analytics.dll
+UnityEngine.Timeline.dll
+nunit.framework.dll
+UnityEngine.UI.dll
+UWPNetworking.dll
+UnityEngine.HoloLens.dll
+Vuforia.UnityExtensions.dll
+UnityEngine.Networking.dll
+HoloLensXboxController.dll

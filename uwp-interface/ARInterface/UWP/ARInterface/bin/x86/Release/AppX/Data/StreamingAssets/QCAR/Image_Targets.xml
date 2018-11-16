@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="ur5" size="1.000000 1.144878" />
+    <ImageTarget name="ur10" size="1.000000 1.307009" />
+    <ImageTarget name="kuka" size="1.000000 0.666667" />
+    <ImageTarget name="baxter" size="1.000000 1.000000" />
+    <ImageTarget name="yumi" size="1.000000 0.666667" />
+    <ImageTarget name="QR_Baxter" size="1.000000 1.000000" />
+    <ImageTarget name="QR_YuMi" size="1.000000 1.000000" />
+    <ImageTarget name="QR_Kuka" size="1.000000 1.000000" />
+    <ImageTarget name="QR_UR10_B" size="1.000000 1.000000" />
+    <ImageTarget name="QR_UR10_A" size="1.000000 1.000000" />
+    <ImageTarget name="QR_UR5" size="1.000000 1.000000" />
+    <ImageTarget name="stones_hires" size="0.200000 0.140000" />
+    <ImageTarget name="nistident_flright_300ppi" size="1.000000 0.459184" />
+    <ImageTarget name="nistident_fleft_300ppi_blue" size="1.000000 0.441680" />
+    <ImageTarget name="nistident_fleft_300ppi" size="1.000000 0.459184" />
+    <ImageTarget name="nistident_cent_300ppi" size="1.000000 0.459184" />
+    <ImageTarget name="nistident_cent_200ppi_blue" size="1.000000 0.445000" />
+  </Tracking>
+</QCARConfig>
