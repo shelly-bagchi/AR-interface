@@ -1,0 +1,5 @@
+VuforiaWrapper.dll
+SharingClient.dll
+Vuforia.dll
+SpatialUnderstanding.dll
+PlaneFinding.dll

@@ -1,0 +1,9 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <UnityWSASolutionName>ARInterface6</UnityWSASolutionName>
+        <UnityWSASolutionDir>C:\Users\sbagchi\Documents\GitLab\hololens-interface\ARInterface\UWP\</UnityWSASolutionDir>
+        <UnityProjectDir>C:\Users\sbagchi\Documents\GitLab\hololens-interface\ARInterface\</UnityProjectDir>
+        <UnityWSAPlayerDir>C:\Program Files\Unity\Editor\Data\PlaybackEngines\MetroSupport\</UnityWSAPlayerDir>
+        <UnityWSAToolsDir>$(UnityWSASolutionDir)Unity\Tools\</UnityWSAToolsDir>
+    </PropertyGroup>
+</Project>
