@@ -23,12 +23,23 @@ using System.Collections.Generic;
 
 public class ur5_kinematics_unity : MonoBehaviour
 {
-    public Button thisButton;
-    public InputField outputText;
+    private GameObject thisUR5;
     public float METER_RATIO = 0.1015f;
+
+    public Button getButton;
     public Button testButton;
+
+    public InputField outputText;
     //public Button goButton;
     public GameObject locationSphere;
+    public GameObject TCP;
+    //private Vector3 originOffset = new Vector3();
+    //private Vector3 baseOffset = new Vector3(0, 2.476f, 0);  // loc of UR5 base - adjusted for model height only
+    private Vector3 baseOffset = new Vector3(-0.434f, 2.246f, 5);  // loc of UR5 base - adjusted based on robot dims and METER_RATIO
+    //private Vector3 baseOffset = new Vector3(2.246f, 0, -0.434f);  // loc of UR5 base - adjusted based on robot dims and METER_RATIO AND adjusted for world coords
+    private Vector3 TCPoffset = new Vector3();  // loc of UR5 gripper
+
+
     public Toggle enableToggle;
     public bool debug_pose = false;
     public float[] output_xyz_rot = new float[6];
@@ -43,7 +54,8 @@ public class ur5_kinematics_unity : MonoBehaviour
     [Range(0, 7)]
     public int select_source = 0;
 
-    public float offset_0 = -42.18f, offset_1, offset_2, offset_3, offset_4, offset_5;
+    //public float offset_0 = -42.18f, offset_1, offset_2, offset_3, offset_4, offset_5;
+    public float[] offsets = new float[6];
     private ur5 robotModel;
 
     public UR5Controller controller;
@@ -57,27 +69,31 @@ public class ur5_kinematics_unity : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //thisButton = this.GetComponent<Button>();
-        thisButton.onClick.AddListener(TaskOnClick);
-
+        thisUR5 = this.gameObject;
+        robotModel = new ur5();
+        
+        getButton.onClick.AddListener(TaskOnClick);
         testButton.onClick.AddListener(TaskOnClick2);
         //goButton.onClick.AddListener(TaskOnClick3);
-
-        robotModel = new ur5();
 
         controller.initializeJoints(jointList);
         controller.initializeSliders(sliderList);
 
         outputText.text = "0.0  0.0  0.0  0.0  0.0  0.0  ";
 
+        // Save initial location of sphere as zero-point
+        baseOffset = thisUR5.transform.position;// - baseOffset;  // not needed when locationSphere is child of robot??
+        //originOffset = locationSphere.transform.position - baseOffset;  // ??  Do not use until fixed
+        TCPoffset.x = locationSphere.transform.position.x - TCP.transform.position.x;
+        //gripperOffset.z = gripper.transform.position.z;
+
+        TaskOnClick();  // Run once to avoid error on TOC2
+
+        //Debug.LogFormat("Base:  " + baseOffset.ToString());
+        //Debug.LogFormat("Origin:  " + originOffset.ToString());
+
     }
 
-    //Update is called once per frame
-
-    //void Update()
-    //{
-    //    return;
-    //}
 
 
     //  Called when get-IK button is clicked
@@ -115,10 +131,12 @@ public class ur5_kinematics_unity : MonoBehaviour
 
 
     //  Called when go-to-IK button (SPHERE) is clicked
-    //void TaskOnClick3()
+    //void TaskOnClick3() {}
 
+    //Update is called once per frame
     void Update()
     {
+
         /*The ever-more mysterious IK method. Use with caution. Method confirmed to only work with UR5 model located at origin with some offset to base.
          * Offset set in the output value for the robot pose is required, otherwise weird behaviour is expected. 
          */
@@ -130,13 +148,16 @@ public class ur5_kinematics_unity : MonoBehaviour
             Matrix<float> robot_to_world = world_to_robot.Transpose();
 
             //My position of handling point
-            Vector3 pt = locationSphere.transform.position;
+            //Vector3 pt = locationSphere.transform.position;
+            // Adjust for initial position of sphere
+            Vector3 pt = (locationSphere.transform.position - TCPoffset) - baseOffset;
+            pt.z = 0f;
             Vector3 eRot = locationSphere.transform.eulerAngles;
             eRot = eRot * Mathf.PI / 180F;
 
             //Setting up variables
-            pt = pt * METER_RATIO;
-            x = -pt.x;
+            pt *= METER_RATIO * 4;  // Does this constant include the 1/4 scale?? Probably not based on UR5 dims
+            x = pt.x;  // Needed to be negated for VR only
             y = pt.y;
             z = pt.z;
             rx = eRot.x;
@@ -144,8 +165,8 @@ public class ur5_kinematics_unity : MonoBehaviour
             rz = eRot.z;
 
             //Format the position into a matrix
-            Matrix<float> robot_to_cube = robotModel.format_pose(x, y, z, rx, ry, rz);
-            Matrix<float> world_to_cube = robot_to_cube.Multiply(robot_to_world);
+            Matrix<float> robot_to_dest = robotModel.format_pose(x, y, z, rx, ry, rz);
+            Matrix<float> world_to_cube = robot_to_dest.Multiply(robot_to_world);
             Matrix<float> matrix_thetha = robotModel.inv_kin(world_to_cube);
             Vector<float> temp_sol = matrix_thetha.Column(select_source);
 
@@ -163,23 +184,24 @@ public class ur5_kinematics_unity : MonoBehaviour
 
             //Convert into degrees
             var soln = matrix_thetha.Column(select_source).Multiply((180f / Mathf.PI));
+
             //Debug.Log(soln);
             //Conditional for debug pose
             if (debug_pose)
             {
-                float[] my_vals = { -42.58f, -43.69f, -99.57f, 233.2f, -89.66f, -47.09f };
+                /*float[] my_vals = { -42.58f, -43.69f, -99.57f, 233.2f, -89.66f, -47.09f };
                 angle_vector = my_vals;
-                controller.setSliderList(controller.offsetJointValues(my_vals));
+                controller.setSliderList(controller.offsetJointValues(my_vals));*/
             }
             else
             {
                 float[] array_sol = soln.ToArray();
-                array_sol[0] += offset_0; //Offset set to -42.18
-                array_sol[1] += offset_1;
-                array_sol[2] += offset_2;
-                array_sol[3] += offset_3;
-                array_sol[4] += offset_4;
-                array_sol[5] += offset_5;
+                array_sol[0] += offsets[0];  // Was set to -42.18
+                array_sol[1] += offsets[1];
+                array_sol[2] += offsets[2];
+                array_sol[3] += offsets[3];
+                array_sol[4] += offsets[4];
+                array_sol[5] += offsets[5];
                 angle_vector = array_sol;
                 controller.setSliderList(controller.offsetJointValues(array_sol));
 

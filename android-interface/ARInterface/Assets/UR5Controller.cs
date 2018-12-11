@@ -102,13 +102,8 @@ public class UR5Controller : MonoBehaviour {
             currentRotation.z = jointValues[i];
             jointList[i].transform.localEulerAngles = currentRotation;
         }
-    }
 
-    void OnGUI() {
-        for (int i = 0; i < 6; i++) {
-            jointValues[i] = sliderList[i].value;
-        }
-
+        
         if (TextToggle.isOn) {
             float[] offsetValues = offsetSliderValues(sliderList);
             /*var temp = "";
@@ -125,6 +120,13 @@ public class UR5Controller : MonoBehaviour {
                 jointValues[5], jointValues[4], jointValues[3],
                 jointValues[2], jointValues[1], jointValues[0]);
         }
+    }
+
+    void OnGUI() {
+        for (int i = 0; i < 6; i++) {
+            jointValues[i] = sliderList[i].value;
+        }
+
     }
 
 

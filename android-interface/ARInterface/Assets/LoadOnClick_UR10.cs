@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LoadOnClick_YuMi : MonoBehaviour
+public class LoadOnClick_UR10 : MonoBehaviour
 {
     private Button thisButton;
 
@@ -17,7 +17,7 @@ public class LoadOnClick_YuMi : MonoBehaviour
     private void LoadScene()
     {
         //loadingImage.SetActive(true);
-        //SceneManager.LoadSceneAsync("Scenes/ARInterface_YuMi", LoadSceneMode.Single);
-        SceneManager.LoadSceneAsync(3, LoadSceneMode.Single);
+        //SceneManager.LoadSceneAsync("Scenes/ARInterface_UR10", LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(2, LoadSceneMode.Single);
     }
 }
