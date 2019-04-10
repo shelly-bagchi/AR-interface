@@ -54,8 +54,9 @@ public class ur5_kinematics_unity : MonoBehaviour
     [Range(0, 7)]
     public int select_source = 0;
 
+    // Joint offsets specifically  for Unity model (deg)
     //public float offset_0 = -42.18f, offset_1, offset_2, offset_3, offset_4, offset_5;
-    public float[] offsets = new float[6];
+    public float[] unityOffsets = new float[] { 0, 0, 0, -90, 180, 0 };
     private ur5 robotModel;
 
     public UR5Controller controller;
@@ -71,7 +72,7 @@ public class ur5_kinematics_unity : MonoBehaviour
     {
         thisUR5 = this.gameObject;
         robotModel = new ur5();
-        
+
         getButton.onClick.AddListener(TaskOnClick);
         testButton.onClick.AddListener(TaskOnClick2);
         //goButton.onClick.AddListener(TaskOnClick3);
@@ -91,6 +92,7 @@ public class ur5_kinematics_unity : MonoBehaviour
 
         //Debug.LogFormat("Base:  " + baseOffset.ToString());
         //Debug.LogFormat("Origin:  " + originOffset.ToString());
+        
 
     }
 
@@ -185,27 +187,25 @@ public class ur5_kinematics_unity : MonoBehaviour
             //Convert into degrees
             var soln = matrix_thetha.Column(select_source).Multiply((180f / Mathf.PI));
 
-            //Debug.Log(soln);
-            //Conditional for debug pose
-            if (debug_pose)
-            {
-                /*float[] my_vals = { -42.58f, -43.69f, -99.57f, 233.2f, -89.66f, -47.09f };
-                angle_vector = my_vals;
-                controller.setSliderList(controller.offsetJointValues(my_vals));*/
-            }
-            else
-            {
-                float[] array_sol = soln.ToArray();
-                array_sol[0] += offsets[0];  // Was set to -42.18
-                array_sol[1] += offsets[1];
-                array_sol[2] += offsets[2];
-                array_sol[3] += offsets[3];
-                array_sol[4] += offsets[4];
-                array_sol[5] += offsets[5];
-                angle_vector = array_sol;
-                controller.setSliderList(controller.offsetJointValues(array_sol));
 
-            }
+            //Debug.Log(soln);
+            /*if (debug_pose)
+            {
+                float[] my_vals = { -42.58f, -43.69f, -99.57f, 233.2f, -89.66f, -47.09f };
+                angle_vector = my_vals;
+                controller.setSliderList(controller.offsetJointValues(my_vals));
+            }*/
+
+
+            float[] array_sol = soln.ToArray();
+            array_sol[0] += unityOffsets[0];  // Was set to -42.18
+            array_sol[1] += unityOffsets[1];
+            array_sol[2] += unityOffsets[2];
+            array_sol[3] += unityOffsets[3];
+            array_sol[4] += unityOffsets[4];
+            array_sol[5] += unityOffsets[5];
+            angle_vector = array_sol;  // save for later
+            controller.setSliderList(controller.offsetJointValues(array_sol));
 
             outputText.text = matrix_thetha.Column(0).Multiply((180f / Mathf.PI)).ToVectorString("0.0  ");
         }
@@ -284,9 +284,10 @@ public class ur5_kinematics_unity : MonoBehaviour
         public ur5()
         {
             // a:  length offset between joints (e.g. length of arm segments in m)
-            a.SetValues(new float[] { 0, -0.425f, -0.39225f, 0, 0, 0 });
             //a.SetValues(new float[] { 0, -0.425f, -0.39225f, 0, 0, 0 });
-            d.SetValues(new float[] { 0.089159f, 0, 0, 0.10915f, 0.09465f, 0.0823f });
+            a.SetValues(new float[] { -0.080f, -0.425f, -0.392f, 0, 0, 0 });
+            //d.SetValues(new float[] { 0.089159f, 0, 0, 0.10915f, 0.09465f, 0.0823f });
+            d.SetValues(new float[] { 0.134f, 0, 0, 0.119f, 0.09475f, 0.0815f });
             alpha.SetValues(new float[] { Mathf.PI / 2, 0, 0, Mathf.PI / 2, -1 * Mathf.PI / 2, 0 });
         }
 
