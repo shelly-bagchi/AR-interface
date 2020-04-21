@@ -5,6 +5,5 @@
     <ObjectTarget name="SilverGear" />
     <ObjectTarget name="PinkGear" />
     <ObjectTarget name="BlueGear" />
-    <ObjectTarget name="drill" />
   </Tracking>
 </QCARConfig>

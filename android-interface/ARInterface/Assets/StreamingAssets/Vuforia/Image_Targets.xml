@@ -12,7 +12,6 @@
     <ImageTarget name="QR_UR10_B" size="1.000000 1.000000" />
     <ImageTarget name="QR_UR10_A" size="1.000000 1.000000" />
     <ImageTarget name="QR_UR5" size="1.000000 1.000000" />
-    <ImageTarget name="stones_hires" size="0.200000 0.140000" />
     <ImageTarget name="nistident_flright_300ppi" size="1.000000 0.459184" />
     <ImageTarget name="nistident_fleft_300ppi_blue" size="1.000000 0.441680" />
     <ImageTarget name="nistident_fleft_300ppi" size="1.000000 0.459184" />

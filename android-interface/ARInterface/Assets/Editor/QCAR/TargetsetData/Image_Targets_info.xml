@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<QCARInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="QCAR_Dataset_config.xsd">
-  <TargetSet version="5.0" toolVersion="4.2.0">
-    <ObjectTarget bbox="0.0 0.0 0.0 142.5 95.0 95.0" captureAppVersion="1.0.0" lastSaved="2016-12-20 15:28:08" name="drill" targetId="57a36ab302ac437fa48324a361eb2eb6" version="2.0" />
-  </TargetSet>
-</QCARInfo>
